@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html>
+    <!-- Referencing Stylesheets -->
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../css/newEmpPayRoll.css">
-        <title>Employee payroll form</title>
+        <title>Employee Payroll Form</title>
     </head>
     <body>
+    <!-- Defining Header Content with logo -->
     <header class="header-content header">
         <div class="logo-content">
-            <img src="../assets/logo.png" alt="logo">
-        
+            <img src="../assets/logo.png" alt="logo">  
         <div>
         <span class="emp-text">EMPLOYEE</span></br>
         <span class="emp-text emp-payroll">PAYROLL</span>
         </div>
     </div>
     </header>
+    <!-- Form Created for Employee Details with various input fields as defined below with action buttons-->
     <div class="form-content">
         <form class="form" action="#" onreset="resetForm();" onsubmit="save(event);">
         <div class="form-head">
-            employee payroll form</div>
+            Employee payroll form</div>
+                <!-- User Name Input field -->
             <div class="row-content">
                 <label class="label text" for="name">Name</label>
                 <input class="input" type="text" id="name" name="name" placeholder="Your name..">
                 <error-output class="text-error" for="text"></error-output>
             </div>
+              <!-- Profile Picture Input field -->
             <div class="row-content"> 
                 <label class="label text" for="profile">Profile image</label>
                 <div class="profile-radio-content"> 
@@ -38,6 +42,7 @@
                     <img class="profile" id='image4' src="../assets/profile-images/Ellipse -4.png"> </label>
                 </div>
             </div>
+            <!-- Gender Input field -->
             <div class="row-content">
                 <label class="label text" for="gender">Gender</label> 
                 <div> 
@@ -47,6 +52,7 @@
                     <label class="text" for="female">Female</label> 
                 </div> 
             </div>
+             <!-- Department Input field -->
             <div class="row-content">
                 <label class="label text" for="department">Department</label>
                 <div> 
@@ -62,13 +68,13 @@
                     <label class="text" for="others">Others</label>
                 </div> 
             </div>
+            <!-- Salary Input field -->
             <div class="row-content"> 
                 <label class="label text" for="salary">Choose your salary: </label> 
                 <input class="input" type="range" name="salary" id="salary" min="300000" max="500000" step="100" value="400000">
                 <output class="salary-output text" for="salary">400000</output> 
             </div> 
-           
-              <!-- UC 5 -->
+        <!-- Date Input field -->
         <div class="row-content">
             <label class="label text" for="startDate">Start Date</label>
             <div id="date">
@@ -129,7 +135,7 @@
             </div>
             <error-output class="date-error" for="startDate"></error-output>
           </div>
-                
+        <!-- Notes Input field -->
                 <div class="row-content">
                     <label class="label text" for="notes">Notes</label> 
                     <textarea id="notes" class="input" name="Notes" placeholder="notes" style="height:100px"></textarea>
@@ -141,10 +147,8 @@
                         <button type="reset" class="resetButton button">Reset</button>
                     </div> 
                 </div> 
-          
-                
-               
         </form>
+        <!-- JavaScript Urls-->
         <script src="../js/newEmpPayRoll.js"></script>
         <script src="../js/site_properties.js"></script>
         <script src="../js/utility.js"></script>
