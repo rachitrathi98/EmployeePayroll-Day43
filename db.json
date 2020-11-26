@@ -1,0 +1,30 @@
+{
+  "EmployeePayrollDB": [
+    {
+      "_name": "Rachit",
+      "_profilePic": "../assets/profile-images/Ellipse -2.png",
+      "_gender": "male",
+      "_department": [
+        "Sales",
+        "Finance",
+        "Engineer"
+      ],
+      "_salary": "425400",
+      "_note": "Test",
+      "_startDate": "1 Nov 2020",
+      "id": 1
+    },
+    {
+      "_name": "mmm",
+      "_profilePic": "../assets/profile-images/Ellipse -1.png",
+      "_gender": "male",
+      "_department": [
+        "HR"
+      ],
+      "_salary": "378000",
+      "_note": "TEst",
+      "_startDate": "1 Nov 2020",
+      "id": 2
+    }
+  ]
+}
