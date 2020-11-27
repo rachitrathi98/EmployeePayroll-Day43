@@ -1,6 +1,7 @@
-let isUpdate = false;
-let employeePayrollObj = {};
+let isUpdate = false;//Boolean for update request
+let employeePayrollObj = {};//Object for Employees
 
+//To execute Event Listeners when document is loaded
 window.addEventListener('DOMContentLoaded', (event) => {
     const name = document.querySelector('#name');
     name.addEventListener('input', function() {
@@ -9,13 +10,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
             return;
         }
         try {
-            checkName(name.value);
+            checkName(name.value);//Comes from utility.js (Checking if Name matches the given Regex)
             setTextValue('.text-error', "");
         } catch (e) {
             setTextValue('.text-error', e);
         }
     });
-
+    //Event Listener for Date
     const date = document.querySelector('#date');
     date.addEventListener('input', function() {
         let startDate = getInputValueById('#day')+" "+getInputValueById('#month')+" "+
@@ -27,23 +28,23 @@ window.addEventListener('DOMContentLoaded', (event) => {
             setTextValue('.date-error', e);
         }
     });
-
+    //Event Listener for Salary
     const salary = document.querySelector('#salary');
     setTextValue('.salary-output', salary.value);
     salary.addEventListener('input', function() {
         setTextValue('.salary-output', salary.value);
     });
-    document.querySelector('.cancelButton').href = site_properties.home_page;
-    checkForUpdate();
+    document.querySelector('.cancelButton').href = site_properties.home_page;//Cancel Button leading to display page
+    checkForUpdate();//Check if the user wants to update an exisiting employee
 });
 
-        //UC3
-
+//Save Function getting called after pressing Submit Button in the form page
 const save = (event) => 
-{ 
+{
     event.preventDefault();
     event.stopPropagation();
     try {
+        
         setEmployeePayrollObject(); 
         if (site_properties.use_local_storage.match("true")) {
             createAndUpdateStorage();
@@ -57,6 +58,7 @@ const save = (event) =>
     }
 } 
 
+//Posting and Updating employee object to JSON Server
 const createOrUpdateEmployeePayroll = () =>  {    
     let postURL = site_properties.server_url;
     let methodCall = "POST";
@@ -74,6 +76,7 @@ const createOrUpdateEmployeePayroll = () =>  {
       });
 }
 
+//Sets the newly submitted values into an object
 const setEmployeePayrollObject = () => {
     if(!isUpdate && site_properties.use_local_storage.match("true")) {
         employeePayrollObj.id = createNewEmployeeId();
@@ -89,6 +92,7 @@ const setEmployeePayrollObject = () => {
     employeePayrollObj._startDate = date;
 }
 
+//Adds the newly created object into the Local Storage Dictionary
 const createAndUpdateStorage = () => {
     let employeePayrollList = JSON.parse(localStorage.getItem("EmployeePayrollList"));
     if(employeePayrollList){
@@ -110,73 +114,15 @@ const createAndUpdateStorage = () => {
 
 }
 
-const createEmployeePayrollData = (id) => {
-    let employeePayrollData = new EmployeePayRoll();
-    if (!id) employeePayrollData.id = createNewEmployeeId();
-    else employeePayrollData.id = id;
-    setEmployeePayrollData(employeePayrollData);
-    return employeePayrollData;
-}
-
-const setEmployeePayrollData = (employeePayrollData) => {
-    try {
-      employeePayrollData.name = employeePayrollObj._name;
-    } catch (e) {
-      setTextValue('.text-error', e);
-      throw e;
-    }
-    employeePayrollData.profilePic = employeePayrollObj._profilePic;
-    employeePayrollData.gender = employeePayrollObj._gender;
-    employeePayrollData.department = employeePayrollObj._department;
-    employeePayrollData.salary = employeePayrollObj._salary;
-    employeePayrollData.note = employeePayrollObj._note;
-    try {
-        employeePayrollData.startDate = 
-            new Date(Date.parse(employeePayrollObj._startDate));
-    } catch (e) {
-        setTextValue('.date-error', e);
-        throw e;
-    }
-    alert(employeePayrollData.toString());
-}
-
+//Assigns an employee ID to the newly created object
 const createNewEmployeeId = () => {
     let empID = localStorage.getItem("EmployeeID");
     empID = !empID ? 1 : (parseInt(empID)+1).toString();
     localStorage.setItem("EmployeeID",empID);
     return empID;
 }
-            
-// const createEmployeePayroll=()=>
-// { 
-//     let employeePayrollData = new EmployeePayRoll();
-//     try 
-//     {
-//         employeePayrollData.name = getInputValueById('#name');
-//     }
-//     catch (e) 
-//     {
-//         setTextValue('.text-error', e);
-//         throw e;
-//     } 
-            
-//     employeePayrollData.profilePic = getSelectedValues('[name=profile]').pop();
-//     employeePayrollData.gender = getSelectedValues('[name=gender]').pop(); 
-//     employeePayrollData.department = getSelectedValues('[name=department]');
-//     employeePayrollData.salary = getInputValueById('#salary');
-//     employeePayrollData.note = getInputValueById('#notes');
-//     let startDate = getInputValueById('#day')+" "+getInputValueById('#month')+" "+
-//                       getInputValueById('#year') ;
-//         try {
-//             (new EmployeePayrollData()).startDate = new Date(Date.parse(startDate));
-//             setTextValue('.date-error', "");
-//         } catch (e) {
-//             setTextValue('.date-error', e);
-//         }
-//     alert(employeePayrollData.toString());
-//     return employeePayrollData; 
-// }
            
+//Retrieves the checked items from the form fields after submitting
     const getSelectedValues = (propertyValue) =>
     {
         let allItems = document.querySelectorAll(propertyValue); 
@@ -188,19 +134,21 @@ const createNewEmployeeId = () => {
         });
         return sellItems;
     }
-            
+     //Retrieves the element by value from the form fields after submitting       
     const getInputElementValue = (id) =>
     {
         let value = document.querySelector(id).value;
         return value; 
     }
     
+    //Retrieves the element by ID from the form fields after submitting       
     const getInputValueById=(id)=>
     {
         let value=document.querySelector(id).value;
         return value;
     }
     
+    //Reset Form Function used to set deafult values in tkhe form
     const resetForm = () =>
     { 
         setValue('#name',''); 
@@ -209,29 +157,33 @@ const createNewEmployeeId = () => {
         unsetSelectedValues('[name=department]'); 
         setValue('#salary', ' '); 
         setValue('#notes',' ');
-        setValue('#day','1');
-        setValue('#month','Jan');
-        setValue('#year','2020'); 
+        document.querySelector('.text-error').textContent = "";
+        document.querySelector('.date-error').textContent = "";
     }
            
+    //Unselects the value when the reset form request is recieved
     const unsetSelectedValues = (propertyValue) => 
     { 
         let allItems = document.querySelectorAll(propertyValue); 
         allItems.forEach(item => { item.checked = false; }
             );
     } 
-           
+      
+    //Sets the values to the right of the input fields (Used for Salary and Error Display)
     const setTextValue = (id, value) => 
     {
         const element = document.querySelector(id); 
         element.textContent = value; 
     } 
     
+    //Sets the value in the form 
     const setValue = (id, value) =>
     {
         const element = document.querySelector(id);
         element.value = value; 
     }
+
+    //Check if an update request is received
     const checkForUpdate = () => {
         const employeePayrollJson = localStorage.getItem('editEmp');
         isUpdate = employeePayrollJson ? true : false;
@@ -240,6 +192,7 @@ const createNewEmployeeId = () => {
         setForm();
     }
 
+    //Sets the form values when an update request is received
     const setForm = () => {
         setValue('#name', employeePayrollObj._name);
         setSelectedValues('[name=profile]', employeePayrollObj._profilePic);
@@ -254,6 +207,7 @@ const createNewEmployeeId = () => {
         setValue('#year',date[2]);
     }
 
+    //Function to set the values
     const setSelectedValues = (propertyValue, value) => {
         let allItems = document.querySelectorAll(propertyValue);
         allItems.forEach(item => {

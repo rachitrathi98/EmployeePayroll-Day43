@@ -2,6 +2,7 @@
 <html>
     <!-- Referencing Stylesheets -->
     <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../css/newEmpPayRoll.css">
         <title>Employee Payroll Form</title>
@@ -78,7 +79,8 @@
         <div class="row-content">
             <label class="label text" for="startDate">Start Date</label>
             <div id="date">
-              <select id="day" name="Day">
+              <select id="day" name="Day" required>
+                <option value="">Day</option> 
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -111,7 +113,8 @@
                 <option value="30">30</option>
                 <option value="31">31</option>
               </select>
-              <select id="month" name="Month">
+              <select id="month" name="Month" required>
+                <option value="">Month</option>
                 <option value="Jan">January</option>
                 <option value="Feb">Febuary</option>
                 <option value="March">March</option>
@@ -125,7 +128,8 @@
                 <option value="Nov">November</option>
                 <option value="Dec">December</option>
               </select>
-              <select id="year" name="Year">
+              <select id="year" name="Year" required>
+                <option value="">Year</option>
                 <option value="2020">2020</option>
                 <option value="2019">2019</option>
                 <option value="2018">2018</option>
@@ -153,6 +157,7 @@
         <script src="../js/site_properties.js"></script>
         <script src="../js/utility.js"></script>
         <script src="../services/http_services.js"></script>
+      
         </div>
     </body>
 </html>
